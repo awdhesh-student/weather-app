@@ -11,7 +11,11 @@ const getWeather = (city)=>{
    .then(response => response.json())
    .then(response => {
       
-      console.log(response)
+      function UTC_Conversion(time){
+         const oldTime = new Date(time * 1000);
+         const newTime = oldTime.toLocaleTimeString();
+         return newTime;
+      }
          
          cloud_pct.innerHTML = response.cloud_pct;
          temp.innerHTML = response.temp;
@@ -22,9 +26,12 @@ const getWeather = (city)=>{
          min_temp.innerHTML = response.min_temp
          max_temp.innerHTML = response.max_temp;
          wind_speed.innerHTML = response.wind_speed;
-         sunrise.innerHTML = response.sunrise;
-         sunrise2.innerHTML = response.sunrise;
-         sunset.innerHTML = response.sunset;
+         sunrise.innerHTML = UTC_Conversion(response.sunrise);
+         sunrise2.innerHTML = UTC_Conversion(response.sunrise);
+         sunset.innerHTML = UTC_Conversion(response.sunset);
+	   
+
+
       })
       .catch(err => console.error(err));
 }
